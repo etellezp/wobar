@@ -1,0 +1,76 @@
+.topTenFilterContainer {
+	margin-bottom: 12px;
+}
+
+.topPlayerCardContainer {
+	margin-bottom: 12px;
+	background-color: #fff;
+	border: 1px solid rgba(22, 22, 23, 0.15);
+	.ant-card-body {
+		height: 100px;
+		padding: 0;
+	}
+}
+
+.playerImage {
+	height: 70px;
+}
+
+.topPlayerRanking {
+	font-size: 26px;
+	margin-left: 10px;
+	font-weight: 200;
+}
+
+.playerInfo {
+	display: flex;
+	font-size: 14px;
+}
+
+.playerName {
+	font-size: 14px;
+}
+
+.playerTeamLogo {
+	height: 18px;
+	margin-right: 5px;
+}
+
+.playerRating {
+	margin-right: 10px;
+	font-size: 20px;
+}
+
+/* For screens smaller than 768px (typical mobile devices) */
+@media (max-width: 768px) {
+	.topPlayerCardContainer {
+		.ant-card-body {
+			height: 75px;
+		}
+	}
+
+	.playerImage {
+		height: 50px;
+	}
+
+	.topPlayerRanking {
+		font-size: 20px;
+	}
+
+	.playerInfo {
+		font-size: 10px;
+	}
+
+	.playerTeamLogo {
+		height: 15px;
+		margin-right: 1px;
+	}
+
+	.playerName {
+		font-size: 12px;
+	}
+
+	.playerRating {
+		font-size: 15px;
+	}
+}
