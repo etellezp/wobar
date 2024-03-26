@@ -2,14 +2,14 @@ import axios from 'axios'
 
 export const getBatterRatings = async (year: string) => {
 	const response = await axios.get(
-		`http://localhost:8000/mlbRatings/${year}/Batter`
+		`https://wobar-api.onrender.com/mlbRatings/${year}/Batter`
 	)
 	return response ? response.data : []
 }
 
 export const getPitcherRatings = async (year: string) => {
 	const response = await axios.get(
-		`http://localhost:8000/mlbRatings/${year}/Pitcher`
+		`https://wobar-api.onrender.com/mlbRatings/${year}/Pitcher`
 	)
 	return response ? response.data : []
 }
@@ -20,7 +20,7 @@ export const getPlayerRating = async (
 	id: string | undefined
 ) => {
 	const response = await axios.get(
-		`http://localhost:8000/mlbRatings/${year}/${position}/${id}`
+		`https://wobar-api.onrender.com/mlbRatings/${year}/${position}/${id}`
 	)
 
 	return response ? response.data : {}
@@ -32,7 +32,7 @@ export const getTripleAPlayerRating = async (
 	id: string | undefined
 ) => {
 	const response = await axios.get(
-		`http://localhost:8000/tripleARatings/${year}/${position}/${id}`
+		`https://wobar-api.onrender.com/tripleARatings/${year}/${position}/${id}`
 	)
 
 	return response ? response.data : {}
@@ -44,7 +44,7 @@ export const getDoubleAPlayerRating = async (
 	id: string | undefined
 ) => {
 	const response = await axios.get(
-		`http://localhost:8000/doubleARatings/${year}/${position}/${id}`
+		`https://wobar-api.onrender.com/doubleARatings/${year}/${position}/${id}`
 	)
 
 	return response ? response.data : {}

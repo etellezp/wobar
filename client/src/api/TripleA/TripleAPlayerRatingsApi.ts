@@ -2,14 +2,14 @@ import axios from 'axios'
 
 export const getTripleABatterRatings = async (year: string) => {
 	const response = await axios.get(
-		`http://localhost:8000/tripleARatings/${year}/Batter`
+		`https://wobar-api.onrender.com/tripleARatings/${year}/Batter`
 	)
 	return response ? response.data : []
 }
 
 export const getTripleAPitcherRatings = async (year: string) => {
 	const response = await axios.get(
-		`http://localhost:8000/tripleARatings/${year}/Pitcher`
+		`https://wobar-api.onrender.com/tripleARatings/${year}/Pitcher`
 	)
 	return response ? response.data : []
 }
