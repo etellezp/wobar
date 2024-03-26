@@ -1,0 +1,8 @@
+.mainContent {
+	min-height: calc(100vh - 70px);
+}
+
+.mainContent {
+	background-color: #f5f5f5;
+	margin-top: 12px;
+}
