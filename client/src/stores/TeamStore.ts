@@ -21,6 +21,14 @@ interface ITeams {
 	rank?: string
 }
 
+interface ITeamData {
+	team: string
+	teamLogo: string
+	totalRating: number
+	playerCount: number
+	rank?: number
+}
+
 class TeamStore {
 	loadingTeams: boolean = false
 	allTeams: ITeams[] = []
@@ -39,7 +47,7 @@ class TeamStore {
 	}
 
 	setAllTeams = (data: IPlayer[]) => {
-		const teamData = data.reduce((acc, obj) => {
+		const teamData = data.reduce((acc: Record<string, ITeamData>, obj) => {
 			const team = obj.team
 
 			if (!acc[team]) {
@@ -63,7 +71,7 @@ class TeamStore {
 
 		teamsArray.sort((a, b) => b.averageRating - a.averageRating)
 
-		teamsArray.forEach((team, index) => {
+		teamsArray.forEach((team: Partial<ITeamData>, index) => {
 			team.rank = index + 1
 		})
 		this.allTeams = teamsArray
