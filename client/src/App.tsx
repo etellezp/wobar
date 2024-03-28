@@ -8,11 +8,12 @@ import {
 } from 'react-router-dom'
 // ==== PAGES ====
 import TopTen from 'src/pages/TopTen'
-// ==== COMPONENTS ====
-import MainLayout from 'src/layouts/MainLayout'
-import NotFound from 'src/pages/NotFound'
 import PlayerRating from 'src/pages/PlayerRating'
 import Rankings from 'src/pages/Rankings'
+import NotFound from 'src/pages/NotFound'
+import TeamRankings from 'src/pages/TeamRankings'
+// ==== COMPONENTS ====
+import MainLayout from 'src/layouts/MainLayout'
 // ==== AG GRID ====
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<MainLayout />}>
 			<Route index element={<TopTen />} />
+			<Route path='/teamRankings' element={<TeamRankings />} />
 			<Route path='/playerRankings' element={<Rankings />} />
 			<Route path='/player/:id' element={<PlayerRating />} />
 			<Route path='*' element={<NotFound />} />

@@ -2,42 +2,36 @@ import React, { useEffect, useMemo } from 'react'
 // ==== MOBX ====
 import { observer } from 'mobx-react-lite'
 // ==== STORES ====
-import PlayersStore from 'src/stores/PlayersStore'
-// ==== REACT ROUTER ====
-import { Link } from 'react-router-dom'
+import TeamStore from 'src/stores/TeamStore'
 // ==== ANTD ====
 import { Row, Col, Image, Select, Spin } from 'antd'
 // ==== AG GRID ====
 import { AgGridReact } from 'ag-grid-react'
 import { ColDef, ICellRendererParams } from 'ag-grid-community'
-// ==== TYPES ====
-import { IPlayer } from 'src/types/MlbTypes'
 import type { YearsChoice } from 'src/types/GlobalTypes'
 
-const Rankings: React.FC = observer(() => {
+const TeamRankings: React.FC = observer(() => {
 	const {
-		allBatters,
-		allPitchers,
-		togglePlayerPosition,
 		toggleYear,
-		loadingPlayers,
-		resetPlayersStore,
+		loadingTeams,
+		resetTeamStore,
 		toggleLeague,
+		allTeams,
 		getPlayersData
-	} = PlayersStore
+	} = TeamStore
 
 	useEffect(() => {
 		getPlayersData()
 
 		return () => {
-			resetPlayersStore()
+			resetTeamStore()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const teamCellRenderer = (rowData: ICellRendererParams) => {
 		const { value, data } = rowData
-
+		console.log(rowData)
 		return (
 			<Row gutter={8} align='middle'>
 				<Col style={{ display: 'flex' }}>
@@ -48,26 +42,7 @@ const Rankings: React.FC = observer(() => {
 		)
 	}
 
-	const nameCellRenderer = (rowData: ICellRendererParams) => {
-		const { value, data } = rowData
-		const position =
-			PlayersStore.playerPosition === 'batter' ? 'Batter' : 'Pitcher'
-
-		const year = PlayersStore.currentYear
-
-		const league = PlayersStore.currentLeague
-
-		return (
-			<Link
-				to={{ pathname: `/player/${data.id}` }}
-				state={{ position, year, league }}
-			>
-				{value}
-			</Link>
-		)
-	}
-
-	const columnDefs: ColDef<IPlayer>[] = useMemo(() => {
+	const columnDefs: ColDef[] = useMemo(() => {
 		return [
 			{
 				field: 'rank',
@@ -78,34 +53,19 @@ const Rankings: React.FC = observer(() => {
 				maxWidth: 60
 			},
 			{
-				cellRenderer: nameCellRenderer,
-				field: 'name',
-				pinned: 'left',
-				filter: 'agTextColumnFilter'
-			},
-			{
 				field: 'team',
 				cellRenderer: teamCellRenderer,
 				filter: 'agTextColumnFilter',
 				minWidth: 300
 			},
 			{
-				field: 'position.type',
-				headerName: 'Position',
-				filter: 'agTextColumnFilter'
-			},
-			{
-				field: 'rating',
+				field: 'averageRating',
 				filter: false,
 				valueFormatter: data => data.value.toFixed(2)
 			}
 		]
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
-	const handlePlayerPosition = (value: 'batter' | 'pitcher') => {
-		togglePlayerPosition(value)
-	}
 
 	const handleYear = (value: YearsChoice) => {
 		toggleYear(value)
@@ -116,7 +76,7 @@ const Rankings: React.FC = observer(() => {
 	}
 
 	return (
-		<Spin spinning={loadingPlayers}>
+		<Spin spinning={loadingTeams}>
 			<Row justify='center' gutter={[0, 12]}>
 				<Col xs={23} md={21} lg={19} xl={17}>
 					<Row gutter={12}>
@@ -144,17 +104,6 @@ const Rankings: React.FC = observer(() => {
 								]}
 							/>
 						</Col>
-
-						<Col>
-							<Select
-								defaultValue='batter'
-								onChange={handlePlayerPosition}
-								options={[
-									{ value: 'batter', label: 'Batter' },
-									{ value: 'pitcher', label: 'Pitcher' }
-								]}
-							/>
-						</Col>
 					</Row>
 				</Col>
 
@@ -167,16 +116,10 @@ const Rankings: React.FC = observer(() => {
 					xl={17}
 				>
 					<AgGridReact
-						rowData={
-							PlayersStore.playerPosition === 'batter'
-								? allBatters
-								: allPitchers
-						}
+						rowData={allTeams}
 						columnDefs={columnDefs}
 						autoSizeStrategy={{ type: 'fitCellContents' }}
-						pagination={true}
-						paginationPageSizeSelector={false}
-						paginationPageSize={50}
+						pagination={false}
 						suppressMenuHide={true}
 					/>
 				</Col>
@@ -185,4 +128,4 @@ const Rankings: React.FC = observer(() => {
 	)
 })
 
-export default Rankings
+export default TeamRankings

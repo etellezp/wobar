@@ -41,6 +41,10 @@
 		height: 40px;
 	}
 
+	.menuText {
+		display: none;
+	}
+
 	.headerLogoContainer {
 		a {
 			height: 40px;

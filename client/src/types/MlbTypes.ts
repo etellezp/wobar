@@ -2,6 +2,7 @@ export interface IPlayer {
 	id: number
 	name: string
 	rating: number
+	rank: number
 	team: string
 	teamLogo: string
 	position: IPosition

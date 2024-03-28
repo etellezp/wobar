@@ -48,11 +48,19 @@ class PlayersStore {
 	}
 
 	setAllBatters = (data: IPlayer[]) => {
-		this.allBatters = data
+		const updateData = data.sort((a, b) => b.rating - a.rating)
+		updateData.forEach((item, index) => {
+			return (item.rank = index + 1)
+		})
+		this.allBatters = updateData
 	}
 
 	setAllPitchers = (data: IPlayer[]) => {
-		this.allPitchers = data
+		const updateData = data.sort((a, b) => b.rating - a.rating)
+		updateData.forEach((item, index) => {
+			return (item.rank = index + 1)
+		})
+		this.allPitchers = updateData
 	}
 
 	toggleLoadingPlayers = (value: boolean) => {

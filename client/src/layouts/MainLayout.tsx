@@ -3,7 +3,7 @@ import React from 'react'
 import { Outlet, Link } from 'react-router-dom'
 // ==== ANTD ====
 import { Affix, Layout, Typography, Row, Col } from 'antd'
-import { CrownOutlined, FundViewOutlined } from '@ant-design/icons'
+import { CrownOutlined, FundOutlined, TeamOutlined } from '@ant-design/icons'
 // ==== ASSETS ====
 import wobarLogo from 'src/assets/wobarLogo.png'
 
@@ -27,7 +27,8 @@ const MainLayout: React.FC = () => {
 								<Col>
 									<Text className='menuLink'>
 										<Link to='/'>
-											<CrownOutlined className='menuIcon' /> Top 10
+											<CrownOutlined className='menuIcon' />{' '}
+											<span className='menuText'>Top 10</span>
 										</Link>
 									</Text>
 								</Col>
@@ -35,7 +36,17 @@ const MainLayout: React.FC = () => {
 								<Col>
 									<Text className='menuLink'>
 										<Link to='/playerRankings'>
-											<FundViewOutlined className='menuIcon' /> Rankings
+											<TeamOutlined className='menuIcon' />{' '}
+											<span className='menuText'>Rankings</span>
+										</Link>
+									</Text>
+								</Col>
+
+								<Col>
+									<Text className='menuLink'>
+										<Link to='/teamRankings'>
+											<FundOutlined className='menuIcon' />{' '}
+											<span className='menuText'>Team Rankings</span>
 										</Link>
 									</Text>
 								</Col>
