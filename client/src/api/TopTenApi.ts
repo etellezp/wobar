@@ -2,14 +2,14 @@ import axios from 'axios'
 
 export const getTopTenBatters = async (year: string) => {
 	const response = await axios.get(
-		`https://wobar-api.onrender.com/mlbRatings/${year}/top10/Batter`
+		`http://localhost:8000/mlb-ratings/${year}/top10/Batter`
 	)
 	return response ? response.data : []
 }
 
 export const getTopTenPitchers = async (year: string) => {
 	const response = await axios.get(
-		`https://wobar-api.onrender.com/mlbRatings/${year}/top10/Pitcher`
+		`http://localhost:8000/mlb-ratings/${year}/top10/Pitcher`
 	)
 	return response ? response.data : []
 }

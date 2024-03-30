@@ -10,6 +10,10 @@ import {
 	getDoubleABatterRatings,
 	getDoubleAPitcherRatings
 } from 'src/api/DoubleA/DoubleAPlayerRatingsApi'
+import {
+	getHighABatterRatings,
+	getHighAPitcherRatings
+} from 'src/api/HighA/HighAPlayerRatingsApi'
 // ==== TYPES ====
 import { IPlayer } from 'src/types/MlbTypes'
 import type { YearsChoice } from 'src/types/GlobalTypes'
@@ -90,6 +94,8 @@ class PlayersStore {
 				this.getAllTripleABatters(this.currentYear)
 			} else if (this.currentLeague === 'doubleA') {
 				this.getAllDoubleABatters(this.currentYear)
+			} else if (this.currentLeague === 'highA') {
+				this.getAllHighABatters(this.currentYear)
 			}
 		} else {
 			if (this.currentLeague === 'mlb') {
@@ -98,6 +104,8 @@ class PlayersStore {
 				this.getAllTripleAPitchers(this.currentYear)
 			} else if (this.currentLeague === 'doubleA') {
 				this.getAllDoubleAPitchers(this.currentYear)
+			} else if (this.currentLeague === 'highA') {
+				this.getAllHighAPitchers(this.currentYear)
 			}
 		}
 	}
@@ -166,6 +174,30 @@ class PlayersStore {
 		try {
 			this.toggleLoadingPlayers(true)
 			const response = await getDoubleAPitcherRatings(year)
+			this.setAllPitchers(response)
+		} catch (error) {
+			console.log(error)
+		} finally {
+			this.toggleLoadingPlayers(false)
+		}
+	}
+
+	getAllHighABatters = async (year: YearsChoice) => {
+		try {
+			this.toggleLoadingPlayers(true)
+			const response = await getHighABatterRatings(year)
+			this.setAllBatters(response)
+		} catch (error) {
+			console.log(error)
+		} finally {
+			this.toggleLoadingPlayers(false)
+		}
+	}
+
+	getAllHighAPitchers = async (year: YearsChoice) => {
+		try {
+			this.toggleLoadingPlayers(true)
+			const response = await getHighAPitcherRatings(year)
 			this.setAllPitchers(response)
 		} catch (error) {
 			console.log(error)

@@ -8,7 +8,7 @@ const {
 const doubleA = express.Router()
 
 doubleA.get('/:year/top10/:type', httpGetTop10DoubleAPlayers)
-doubleA.get('/:year/:type', httpGetDoubleARatings)
 doubleA.get('/:year/:type/:playerId', httpGetDoubleAPlayerRating)
+doubleA.get('/:year/:type', httpGetDoubleARatings)
 
 module.exports = doubleA

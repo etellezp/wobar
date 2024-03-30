@@ -22,8 +22,8 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<MainLayout />}>
 			<Route index element={<TopTen />} />
-			<Route path='/teamRankings' element={<TeamRankings />} />
-			<Route path='/playerRankings' element={<Rankings />} />
+			<Route path='/team-rankings' element={<TeamRankings />} />
+			<Route path='/player-rankings' element={<Rankings />} />
 			<Route path='/player/:id' element={<PlayerRating />} />
 			<Route path='*' element={<NotFound />} />
 		</Route>

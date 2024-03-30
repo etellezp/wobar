@@ -10,6 +10,10 @@ import {
 	getDoubleATopTenBatters,
 	getDoubleATopTenPitchers
 } from 'src/api/DoubleA/DoubleATopTenApi'
+import {
+	getHighATopTenBatters,
+	getHighATopTenPitchers
+} from 'src/api/HighA/HighATopTenApi'
 // ==== TYPES ====
 import { IPlayer } from 'src/types/MlbTypes'
 import type { YearsChoice } from 'src/types/GlobalTypes'
@@ -75,6 +79,11 @@ class TopTenStore {
 					this.getDoubleATopBatters(year),
 					this.getDoubleATopPitchers(year)
 				])
+			} else if (league === 'highA') {
+				await Promise.all([
+					this.getHighATopBatters(year),
+					this.getHighATopPitchers(year)
+				])
 			}
 		} catch (error) {
 			console.log(error)
@@ -131,6 +140,24 @@ class TopTenStore {
 	getDoubleATopPitchers = async (year: YearsChoice) => {
 		try {
 			const response = await getDoubleATopTenPitchers(year)
+			this.setPitcherTopTen(response)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	getHighATopBatters = async (year: YearsChoice) => {
+		try {
+			const response = await getHighATopTenBatters(year)
+			this.setBatterTopTen(response)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	getHighATopPitchers = async (year: YearsChoice) => {
+		try {
+			const response = await getHighATopTenPitchers(year)
 			this.setPitcherTopTen(response)
 		} catch (error) {
 			console.log(error)

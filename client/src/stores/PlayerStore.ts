@@ -4,7 +4,8 @@ import { makeAutoObservable } from 'mobx'
 import {
 	getPlayerRating,
 	getTripleAPlayerRating,
-	getDoubleAPlayerRating
+	getDoubleAPlayerRating,
+	getHighAPlayerRating
 } from 'src/api/PlayerRatingsApi'
 // ==== TYPES ====
 import { IPlayer } from 'src/types/MlbTypes'
@@ -57,6 +58,8 @@ class PlayersStore {
 				response = await getTripleAPlayerRating(year, position, id)
 			} else if (league === 'doubleA') {
 				response = await getDoubleAPlayerRating(year, position, id)
+			} else if (league === 'highA') {
+				response = await getHighAPlayerRating(year, position, id)
 			}
 			this.setPlayerData(response)
 		} catch (error) {

@@ -35,7 +35,7 @@ const MainLayout: React.FC = () => {
 
 								<Col>
 									<Text className='menuLink'>
-										<Link to='/playerRankings'>
+										<Link to='/player-rankings'>
 											<TeamOutlined className='menuIcon' />{' '}
 											<span className='menuText'>Rankings</span>
 										</Link>
@@ -44,7 +44,7 @@ const MainLayout: React.FC = () => {
 
 								<Col>
 									<Text className='menuLink'>
-										<Link to='/teamRankings'>
+										<Link to='/team-rankings'>
 											<FundOutlined className='menuIcon' />{' '}
 											<span className='menuText'>Team Rankings</span>
 										</Link>

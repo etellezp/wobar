@@ -10,6 +10,10 @@ import {
 	getDoubleABatterRatings,
 	getDoubleAPitcherRatings
 } from 'src/api/DoubleA/DoubleAPlayerRatingsApi'
+import {
+	getHighABatterRatings,
+	getHighAPitcherRatings
+} from 'src/api/HighA/HighAPlayerRatingsApi'
 // ==== TYPES ====
 import { IPlayer } from 'src/types/MlbTypes'
 import type { YearsChoice } from 'src/types/GlobalTypes'
@@ -104,6 +108,8 @@ class TeamStore {
 			this.getTripleATeams()
 		} else if (this.currentLeague === 'doubleA') {
 			this.getDoubleATeams()
+		} else if (this.currentLeague === 'highA') {
+			this.getHighATeams()
 		}
 	}
 
@@ -144,6 +150,22 @@ class TeamStore {
 			this.toggleLoadingTeams(true)
 			const batters = await getDoubleABatterRatings(this.currentYear)
 			const pitchers = await getDoubleAPitcherRatings(this.currentYear)
+
+			const allPlayers = [...batters, ...pitchers]
+
+			this.setAllTeams(allPlayers)
+		} catch (error) {
+			console.log(error)
+		} finally {
+			this.toggleLoadingTeams(false)
+		}
+	}
+
+	getHighATeams = async () => {
+		try {
+			this.toggleLoadingTeams(true)
+			const batters = await getHighABatterRatings(this.currentYear)
+			const pitchers = await getHighAPitcherRatings(this.currentYear)
 
 			const allPlayers = [...batters, ...pitchers]
 

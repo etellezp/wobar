@@ -128,7 +128,8 @@ const Rankings: React.FC = observer(() => {
 								options={[
 									{ value: 'mlb', label: 'MLB' },
 									{ value: 'tripleA', label: 'Triple-A' },
-									{ value: 'doubleA', label: 'Double-A' }
+									{ value: 'doubleA', label: 'Double-A' },
+									{ value: 'highA', label: 'High-A' }
 								]}
 							/>
 						</Col>

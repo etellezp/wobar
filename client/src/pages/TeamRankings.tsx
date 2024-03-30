@@ -31,7 +31,6 @@ const TeamRankings: React.FC = observer(() => {
 
 	const teamCellRenderer = (rowData: ICellRendererParams) => {
 		const { value, data } = rowData
-		console.log(rowData)
 		return (
 			<Row gutter={8} align='middle'>
 				<Col style={{ display: 'flex' }}>
@@ -88,7 +87,8 @@ const TeamRankings: React.FC = observer(() => {
 								options={[
 									{ value: 'mlb', label: 'MLB' },
 									{ value: 'tripleA', label: 'Triple-A' },
-									{ value: 'doubleA', label: 'Double-A' }
+									{ value: 'doubleA', label: 'Double-A' },
+									{ value: 'highA', label: 'High-A' }
 								]}
 							/>
 						</Col>
