@@ -17,7 +17,7 @@ const corsOptions = {
 // Middlewares
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '..', 'public')))
+app.use(express.static(path.join(__dirname, 'client/dist')))
 
 // Routes
 app.use('/mlb-ratings', mlbRouter)
@@ -25,8 +25,9 @@ app.use('/tripleA-ratings', tripleARouter)
 app.use('/doubleA-ratings', doubleARouter)
 app.use('/highA-ratings', highARouter)
 
-app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'index.html'))
+// For any other routes, serve the React build file
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 })
 
 const startServer = async () => {
