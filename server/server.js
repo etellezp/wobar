@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const cors = require('cors')
 const { connectDB, closeDB } = require('./database/db')
 const mlbRouter = require('./routes/mlb.router')
