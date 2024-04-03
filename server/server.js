@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const { createProxyMiddleware } = require('http-proxy-middleware')
 const { connectDB, closeDB } = require('./database/db')
 const mlbRouter = require('./routes/mlb.router')
 const tripleARouter = require('./routes/tripleA.router')
@@ -17,28 +16,17 @@ const corsOptions = {
 // Middlewares
 app.use(cors(corsOptions))
 app.use(express.json())
-
-// Proxy requests to your React app
-app.use(
-	'/team-rankings',
-	createProxyMiddleware({
-		target: 'https://wobar.onrender.com',
-		changeOrigin: true
-	})
-)
-app.use(
-	'/player-rankings',
-	createProxyMiddleware({
-		target: 'https://wobar.onrender.com',
-		changeOrigin: true
-	})
-)
+app.use(express.static(path.join(__dirname, 'dist')))
 
 // Routes
 app.use('/mlb-ratings', mlbRouter)
 app.use('/tripleA-ratings', tripleARouter)
 app.use('/doubleA-ratings', doubleARouter)
 app.use('/highA-ratings', highARouter)
+
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
 
 const startServer = async () => {
 	try {
