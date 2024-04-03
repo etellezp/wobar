@@ -17,7 +17,7 @@ const corsOptions = {
 // Middlewares
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 // Routes
 app.use('/mlb-ratings', mlbRouter)
@@ -26,7 +26,7 @@ app.use('/doubleA-ratings', doubleARouter)
 app.use('/highA-ratings', highARouter)
 
 app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
+	res.sendFile(path.join(__dirname, '..', 'index.html'))
 })
 
 const startServer = async () => {
