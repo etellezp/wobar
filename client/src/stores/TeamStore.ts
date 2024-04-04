@@ -38,6 +38,7 @@ class TeamStore {
 	allTeams: ITeams[] = []
 	currentYear: YearsChoice = '2024'
 	currentLeague: string = 'mlb'
+	playerPosition: 'batter' | 'pitcher' | 'all' = 'all'
 
 	constructor() {
 		makeAutoObservable(this)
@@ -48,6 +49,7 @@ class TeamStore {
 		this.allTeams = []
 		this.currentYear = '2024'
 		this.currentLeague = 'mlb'
+		this.playerPosition = 'all'
 	}
 
 	setAllTeams = (data: IPlayer[]) => {
@@ -89,6 +91,10 @@ class TeamStore {
 		this.currentLeague = value
 	}
 
+	updatePlayerPosition = (position: 'batter' | 'pitcher' | 'all') => {
+		this.playerPosition = position
+	}
+
 	toggleLoadingTeams = (value: boolean) => [(this.loadingTeams = value)]
 
 	toggleLeague = (value: string) => {
@@ -98,6 +104,11 @@ class TeamStore {
 
 	toggleYear = (year: YearsChoice) => {
 		this.updateCurrentYear(year)
+		this.getPlayersData()
+	}
+
+	togglePlayerPosition = (position: 'batter' | 'pitcher' | 'all') => {
+		this.updatePlayerPosition(position)
 		this.getPlayersData()
 	}
 
@@ -113,15 +124,26 @@ class TeamStore {
 		}
 	}
 
+	getAllTeams = (batters: IPlayer[], pitchers: IPlayer[]) => {
+		let allPlayers: IPlayer[] = []
+
+		if (this.playerPosition === 'batter') {
+			allPlayers = [...batters]
+		} else if (this.playerPosition === 'pitcher') {
+			allPlayers = [...pitchers]
+		} else {
+			allPlayers = [...batters, ...pitchers]
+		}
+
+		this.setAllTeams(allPlayers)
+	}
+
 	getMlbTeams = async () => {
 		try {
 			this.toggleLoadingTeams(true)
 			const batters = await getBatterRatings(this.currentYear)
 			const pitchers = await getPitcherRatings(this.currentYear)
-
-			const allPlayers = [...batters, ...pitchers]
-
-			this.setAllTeams(allPlayers)
+			this.getAllTeams(batters, pitchers)
 		} catch (error) {
 			console.log(error)
 		} finally {
@@ -134,10 +156,7 @@ class TeamStore {
 			this.toggleLoadingTeams(true)
 			const batters = await getTripleABatterRatings(this.currentYear)
 			const pitchers = await getTripleAPitcherRatings(this.currentYear)
-
-			const allPlayers = [...batters, ...pitchers]
-
-			this.setAllTeams(allPlayers)
+			this.getAllTeams(batters, pitchers)
 		} catch (error) {
 			console.log(error)
 		} finally {
@@ -150,10 +169,7 @@ class TeamStore {
 			this.toggleLoadingTeams(true)
 			const batters = await getDoubleABatterRatings(this.currentYear)
 			const pitchers = await getDoubleAPitcherRatings(this.currentYear)
-
-			const allPlayers = [...batters, ...pitchers]
-
-			this.setAllTeams(allPlayers)
+			this.getAllTeams(batters, pitchers)
 		} catch (error) {
 			console.log(error)
 		} finally {
@@ -166,10 +182,7 @@ class TeamStore {
 			this.toggleLoadingTeams(true)
 			const batters = await getHighABatterRatings(this.currentYear)
 			const pitchers = await getHighAPitcherRatings(this.currentYear)
-
-			const allPlayers = [...batters, ...pitchers]
-
-			this.setAllTeams(allPlayers)
+			this.getAllTeams(batters, pitchers)
 		} catch (error) {
 			console.log(error)
 		} finally {

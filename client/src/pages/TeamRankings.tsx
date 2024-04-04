@@ -17,7 +17,8 @@ const TeamRankings: React.FC = observer(() => {
 		resetTeamStore,
 		toggleLeague,
 		allTeams,
-		getPlayersData
+		getPlayersData,
+		togglePlayerPosition
 	} = TeamStore
 
 	useEffect(() => {
@@ -74,6 +75,10 @@ const TeamRankings: React.FC = observer(() => {
 		toggleLeague(value)
 	}
 
+	const handlePlayerPosition = (value: 'batter' | 'pitcher' | 'all') => {
+		togglePlayerPosition(value)
+	}
+
 	return (
 		<Spin spinning={loadingTeams}>
 			<Row justify='center' gutter={[0, 12]}>
@@ -101,6 +106,19 @@ const TeamRankings: React.FC = observer(() => {
 									{ value: '2024', label: '2024' },
 									{ value: '2023', label: '2023' },
 									{ value: '2022', label: '2022' }
+								]}
+							/>
+						</Col>
+
+						<Col>
+							<Select
+								style={{ width: '100px' }}
+								defaultValue='all'
+								onChange={handlePlayerPosition}
+								options={[
+									{ value: 'all', label: 'All' },
+									{ value: 'batter', label: 'Batter' },
+									{ value: 'pitcher', label: 'Pitcher' }
 								]}
 							/>
 						</Col>

@@ -5,9 +5,8 @@ import 'src/styles/index.css'
 // ==== COMPONENTS ====
 import App from 'src/App'
 
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
 )
