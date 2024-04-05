@@ -13,7 +13,7 @@ const port = process.env.PORT || 8000
 const corsOptions = {
 	// origin: 'https://wobar.onrender.com'
 	// origin: 'http://localhost:5173'
-	origin: 'https://worldbaseballrating.com'
+	origin: 'https://www.worldbaseballrating.com'
 }
 
 // Middlewares
