@@ -31,7 +31,6 @@ const router = createBrowserRouter(
 )
 
 const App: React.FC = () => {
-	console.log('HOST:', import.meta.env.VITE_API_URL)
 	return <RouterProvider router={router} />
 }
 

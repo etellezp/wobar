@@ -7,6 +7,8 @@ export interface IPlayer {
 	teamLogo: string
 	position: IPosition
 	ratingHistory: IRatingHistory[]
+	league: string
+	division: string
 }
 
 export interface IPosition {

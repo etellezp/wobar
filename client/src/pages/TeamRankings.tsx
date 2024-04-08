@@ -54,9 +54,17 @@ const TeamRankings: React.FC = observer(() => {
 			},
 			{
 				field: 'team',
+				pinned: 'left',
 				cellRenderer: teamCellRenderer,
-				filter: 'agTextColumnFilter',
-				minWidth: 300
+				filter: 'agTextColumnFilter'
+			},
+			{
+				field: 'league',
+				filter: 'agTextColumnFilter'
+			},
+			{
+				field: 'division',
+				filter: 'agTextColumnFilter'
 			},
 			{
 				field: 'averageRating',
@@ -127,7 +135,7 @@ const TeamRankings: React.FC = observer(() => {
 
 				<Col
 					className='ag-theme-quartz'
-					style={{ height: '450px' }}
+					style={{ height: '500px' }}
 					xs={23}
 					md={21}
 					lg={19}

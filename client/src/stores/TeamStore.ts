@@ -31,6 +31,8 @@ interface ITeamData {
 	totalRating: number
 	playerCount: number
 	rank?: number
+	league: string
+	division: string
 }
 
 class TeamStore {
@@ -61,7 +63,9 @@ class TeamStore {
 					team: team,
 					teamLogo: obj.teamLogo,
 					totalRating: 0,
-					playerCount: 0
+					playerCount: 0,
+					league: obj.league,
+					division: obj.division
 				}
 			}
 			acc[team].totalRating += obj.rating
@@ -72,15 +76,22 @@ class TeamStore {
 		const teamsArray = Object.values(teamData).map(team => ({
 			team: team.team,
 			teamLogo: team.teamLogo,
-			averageRating: team.totalRating / team.playerCount
+			averageRating: team.totalRating / team.playerCount,
+			league: team.league,
+			division: team.division
 		}))
 
 		teamsArray.sort((a, b) => b.averageRating - a.averageRating)
 
-		teamsArray.forEach((team: Partial<ITeamData>, index) => {
+		const teamsData = teamsArray.filter(
+			team => team.team !== null && team.team !== ''
+		)
+
+		teamsData.forEach((team: Partial<ITeamData>, index) => {
 			team.rank = index + 1
 		})
-		this.allTeams = teamsArray
+
+		this.allTeams = teamsData
 	}
 
 	updateCurrentYear = (year: YearsChoice) => {

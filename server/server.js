@@ -19,7 +19,6 @@ const corsOptions = {
 // Middlewares
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'client/dist')))
 
 // Routes
 app.use('/mlb-ratings', mlbRouter)
