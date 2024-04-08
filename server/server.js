@@ -26,11 +26,6 @@ app.use('/tripleA-ratings', tripleARouter)
 app.use('/doubleA-ratings', doubleARouter)
 app.use('/highA-ratings', highARouter)
 
-// For any other routes, serve the React build file
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
-})
-
 const startServer = async () => {
 	try {
 		await connectDB()

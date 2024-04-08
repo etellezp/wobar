@@ -39,7 +39,7 @@ const Rankings: React.FC = observer(() => {
 		const { value, data } = rowData
 
 		return (
-			<Row gutter={8} align='middle'>
+			<Row gutter={8} align='middle' className='teamCellRow'>
 				<Col style={{ display: 'flex' }}>
 					<Image src={data.teamLogo} height={20} width={20} preview={false} />
 				</Col>
@@ -86,8 +86,7 @@ const Rankings: React.FC = observer(() => {
 			{
 				field: 'team',
 				cellRenderer: teamCellRenderer,
-				filter: 'agTextColumnFilter',
-				minWidth: 300
+				filter: 'agTextColumnFilter'
 			},
 			{
 				field: 'position.type',

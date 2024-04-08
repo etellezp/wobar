@@ -33,9 +33,13 @@ const TeamRankings: React.FC = observer(() => {
 	const teamCellRenderer = (rowData: ICellRendererParams) => {
 		const { value, data } = rowData
 		return (
-			<Row gutter={8} align='middle'>
-				<Col style={{ display: 'flex' }}>
-					<Image src={data.teamLogo} height={20} width={20} preview={false} />
+			<Row gutter={8} align='middle' className='teamCellRow'>
+				<Col
+					style={{
+						display: 'flex'
+					}}
+				>
+					<Image src={data.teamLogo} height={20} width='auto' preview={false} />
 				</Col>
 				<Col className='teamCell'>{value}</Col>
 			</Row>
