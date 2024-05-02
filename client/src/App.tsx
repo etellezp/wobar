@@ -24,7 +24,10 @@ const router = createBrowserRouter(
 			<Route index element={<TopTen />} />
 			<Route path='/team-rankings' element={<TeamRankings />} />
 			<Route path='/player-rankings' element={<Rankings />} />
-			<Route path='/player/:id' element={<PlayerRating />} />
+			<Route
+				path='/player/:id/:year/:league/:position'
+				element={<PlayerRating />}
+			/>
 			<Route path='*' element={<NotFound />} />
 		</Route>
 	)

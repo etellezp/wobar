@@ -21,17 +21,16 @@ const Rankings: React.FC = observer(() => {
 		togglePlayerPosition,
 		toggleYear,
 		loadingPlayers,
-		resetPlayersStore,
 		toggleLeague,
-		getPlayersData
+		getPlayersData,
+		currentLeague,
+		currentYear,
+		playerPosition
 	} = PlayersStore
 
 	useEffect(() => {
 		getPlayersData()
 
-		return () => {
-			resetPlayersStore()
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -59,8 +58,9 @@ const Rankings: React.FC = observer(() => {
 
 		return (
 			<Link
-				to={{ pathname: `/player/${data.id}` }}
-				state={{ position, year, league }}
+				to={{
+					pathname: `/player/${data.id}/${year}/${league}/${position}`
+				}}
 			>
 				{value}
 			</Link>
@@ -122,7 +122,7 @@ const Rankings: React.FC = observer(() => {
 						<Col>
 							<Select
 								style={{ width: '120px' }}
-								defaultValue='mlb'
+								defaultValue={currentLeague}
 								onChange={handleLeague}
 								options={[
 									{ value: 'mlb', label: 'MLB' },
@@ -135,7 +135,7 @@ const Rankings: React.FC = observer(() => {
 
 						<Col>
 							<Select
-								defaultValue='2024'
+								defaultValue={currentYear}
 								onChange={handleYear}
 								options={[
 									{ value: '2024', label: '2024' },
@@ -147,7 +147,7 @@ const Rankings: React.FC = observer(() => {
 
 						<Col>
 							<Select
-								defaultValue='batter'
+								defaultValue={playerPosition}
 								onChange={handlePlayerPosition}
 								options={[
 									{ value: 'batter', label: 'Batter' },

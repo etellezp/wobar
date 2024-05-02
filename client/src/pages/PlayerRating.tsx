@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 // ==== REACT ROUTER ====
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 // ==== MOBX ====
 import { observer } from 'mobx-react-lite'
 // ==== STORES ====
@@ -10,17 +10,22 @@ import { Spin, Row, Col } from 'antd'
 // ==== AG GRID ====
 import { AgChartsReact } from 'ag-charts-react'
 import { AgChartOptions } from 'ag-charts-community'
+// ==== TYPES ====
+import { YearsChoice } from 'src/types/GlobalTypes'
+
+type PlayerPosition = 'Batter' | 'Pitcher'
 
 const PlayerRating: React.FC = observer(() => {
-	const { id } = useParams()
-	const { state } = useLocation()
+	const { id, year, league, position } = useParams()
 	const { getPlayer, playerData, loadingPlayer, resetPlayerStore } = PlayerStore
 
 	useEffect(() => {
-		const playerPosition = state.position
-		const year = state.year
-		const league = state.league
-		getPlayer(year, playerPosition, id, league)
+		getPlayer(
+			year as YearsChoice,
+			position as PlayerPosition,
+			id,
+			league as string
+		)
 
 		return () => {
 			resetPlayerStore()
@@ -35,7 +40,7 @@ const PlayerRating: React.FC = observer(() => {
 			fontSize: 20
 		},
 		subtitle: {
-			text: `${state.year} ${state.league} Season Ratings`,
+			text: `${year} ${league} Season Ratings`,
 			fontSize: 14
 		},
 		data: playerData.ratingHistory || [],

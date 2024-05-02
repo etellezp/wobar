@@ -30,15 +30,6 @@ class PlayersStore {
 		makeAutoObservable(this)
 	}
 
-	resetPlayersStore = () => {
-		this.loadingPlayers = false
-		this.allBatters = []
-		this.allPitchers = []
-		this.playerPosition = 'batter'
-		this.currentYear = '2024'
-		this.currentLeague = 'mlb'
-	}
-
 	updatePlayerPosition = (position: 'batter' | 'pitcher') => {
 		this.playerPosition = position
 	}

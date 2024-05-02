@@ -46,14 +46,6 @@ class TeamStore {
 		makeAutoObservable(this)
 	}
 
-	resetTeamStore = () => {
-		this.loadingTeams = false
-		this.allTeams = []
-		this.currentYear = '2024'
-		this.currentLeague = 'mlb'
-		this.playerPosition = 'all'
-	}
-
 	setAllTeams = (data: IPlayer[]) => {
 		const teamData = data.reduce((acc: Record<string, ITeamData>, obj) => {
 			const team = obj.team

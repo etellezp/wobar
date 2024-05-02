@@ -29,14 +29,6 @@ class TopTenStore {
 		makeAutoObservable(this)
 	}
 
-	resetTopTenStore = () => {
-		this.currentYear = '2024'
-		this.topTenLeague = 'mlb'
-		this.loadingTopTen = false
-		this.batterTopTen = []
-		this.pitcherTopTen = []
-	}
-
 	toggleLoadingTopTen = (value: boolean) => {
 		this.loadingTopTen = value
 	}

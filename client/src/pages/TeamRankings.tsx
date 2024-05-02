@@ -14,19 +14,18 @@ const TeamRankings: React.FC = observer(() => {
 	const {
 		toggleYear,
 		loadingTeams,
-		resetTeamStore,
 		toggleLeague,
 		allTeams,
 		getPlayersData,
-		togglePlayerPosition
+		togglePlayerPosition,
+		currentLeague,
+		currentYear,
+		playerPosition
 	} = TeamStore
 
 	useEffect(() => {
 		getPlayersData()
 
-		return () => {
-			resetTeamStore()
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -99,7 +98,7 @@ const TeamRankings: React.FC = observer(() => {
 						<Col>
 							<Select
 								style={{ width: '120px' }}
-								defaultValue='mlb'
+								defaultValue={currentLeague}
 								onChange={handleLeague}
 								options={[
 									{ value: 'mlb', label: 'MLB' },
@@ -112,7 +111,7 @@ const TeamRankings: React.FC = observer(() => {
 
 						<Col>
 							<Select
-								defaultValue='2024'
+								defaultValue={currentYear}
 								onChange={handleYear}
 								options={[
 									{ value: '2024', label: '2024' },
@@ -125,7 +124,7 @@ const TeamRankings: React.FC = observer(() => {
 						<Col>
 							<Select
 								style={{ width: '100px' }}
-								defaultValue='all'
+								defaultValue={playerPosition}
 								onChange={handlePlayerPosition}
 								options={[
 									{ value: 'all', label: 'All' },

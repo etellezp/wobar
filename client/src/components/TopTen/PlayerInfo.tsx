@@ -21,6 +21,7 @@ const { Text } = Typography
 
 const PlayerInfo: React.FC<IProps> = observer(
 	({ player, ranking, playerPosition, year, league }) => {
+		const position = playerPosition
 		return (
 			<Card className='topPlayerCardContainer'>
 				<Row justify='space-between' align='middle' style={{ height: '100%' }}>
@@ -41,8 +42,7 @@ const PlayerInfo: React.FC<IProps> = observer(
 							<Col>
 								<Flex vertical>
 									<Link
-										to={`player/${player.id}`}
-										state={{ position: playerPosition, year, league }}
+										to={`player/${player.id}/${year}/${league}/${position}`}
 									>
 										<span className='playerName'>
 											{player.name.toUpperCase()}

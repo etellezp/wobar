@@ -19,7 +19,6 @@ const TopTen: React.FC = observer(() => {
 		getTopPlayers,
 		setTopTenYear,
 		loadingTopTen,
-		resetTopTenStore,
 		setTopTenLeague,
 		currentYear,
 		topTenLeague
@@ -27,10 +26,6 @@ const TopTen: React.FC = observer(() => {
 
 	useEffect(() => {
 		getTopPlayers(currentYear, topTenLeague)
-
-		return () => {
-			resetTopTenStore()
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -50,7 +45,7 @@ const TopTen: React.FC = observer(() => {
 						<Col>
 							<Select
 								style={{ width: '120px' }}
-								defaultValue='mlb'
+								defaultValue={topTenLeague}
 								onChange={handleTopTenLeague}
 								options={[
 									{ value: 'mlb', label: 'MLB' },
@@ -63,7 +58,7 @@ const TopTen: React.FC = observer(() => {
 
 						<Col>
 							<Select
-								defaultValue='2024'
+								defaultValue={currentYear}
 								onChange={handleTopTenYear}
 								options={[
 									{ value: '2024', label: '2024' },
