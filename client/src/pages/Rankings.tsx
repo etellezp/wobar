@@ -68,7 +68,7 @@ const Rankings: React.FC = observer(() => {
 	}
 
 	const columnDefs: ColDef<IPlayer>[] = useMemo(() => {
-		return [
+		const shareColumns: ColDef<IPlayer>[] = [
 			{
 				field: 'rank',
 				pinned: 'left',
@@ -99,8 +99,117 @@ const Rankings: React.FC = observer(() => {
 				valueFormatter: data => data.value.toFixed(2)
 			}
 		]
+
+		const batterColumns: ColDef<IPlayer>[] = [
+			{
+				field: 'atBats',
+				headerName: 'At Bats',
+				filter: false
+			},
+			{
+				field: 'hits',
+				headerName: 'Hits',
+				filter: false
+			},
+			{
+				field: 'homeruns',
+				headerName: 'Homeruns',
+				filter: false
+			},
+			{
+				field: 'avg',
+				headerName: 'AVG',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			},
+			{
+				field: 'obp',
+				headerName: 'OBP',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			},
+			{
+				field: 'ops',
+				headerName: 'OPS',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			},
+			{
+				field: 'slg',
+				headerName: 'SLG',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			}
+		]
+
+		const pitcherColumns: ColDef<IPlayer>[] = [
+			{
+				field: 'era',
+				headerName: 'ERA',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			},
+			{
+				field: 'whip',
+				headerName: 'WHIP',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			},
+			{
+				field: 'numberOfPitches',
+				headerName: 'Pitches',
+				filter: false
+			},
+			{
+				field: 'strikes',
+				headerName: 'Strikes',
+				filter: false
+			},
+			{
+				field: 'strikesPercentage',
+				headerName: 'Strikes %',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			},
+			{
+				field: 'wins',
+				headerName: 'Wins',
+				filter: false
+			},
+			{
+				field: 'losses',
+				headerName: 'Losses',
+				filter: false
+			},
+			{
+				field: 'winPercentage',
+				headerName: 'Win %',
+				filter: false,
+				comparator: (valueA, valueB) => {
+					return +valueA - +valueB
+				}
+			}
+		]
+
+		return playerPosition === 'batter'
+			? [...shareColumns, ...batterColumns]
+			: [...shareColumns, ...pitcherColumns]
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [playerPosition])
 
 	const handlePlayerPosition = (value: 'batter' | 'pitcher') => {
 		togglePlayerPosition(value)
@@ -117,7 +226,7 @@ const Rankings: React.FC = observer(() => {
 	return (
 		<Spin spinning={loadingPlayers}>
 			<Row justify='center' gutter={[0, 12]}>
-				<Col xs={23} md={21} lg={19} xl={17}>
+				<Col xs={23} md={21}>
 					<Row gutter={12}>
 						<Col>
 							<Select
@@ -163,8 +272,6 @@ const Rankings: React.FC = observer(() => {
 					style={{ height: '450px' }}
 					xs={23}
 					md={21}
-					lg={19}
-					xl={17}
 				>
 					<AgGridReact
 						rowData={

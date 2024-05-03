@@ -9,6 +9,21 @@ export interface IPlayer {
 	ratingHistory: IRatingHistory[]
 	league: string
 	division: string
+	atBats?: number
+	avg?: string
+	hits?: number
+	homeruns?: number
+	obp?: string
+	slg?: string
+	ops?: string
+	era?: string
+	losses?: number
+	numberOfPitches?: number
+	strikes?: number
+	strikesPercentage?: string
+	whip?: string
+	winPercentage?: string
+	wins?: number
 }
 
 export interface IPosition {
