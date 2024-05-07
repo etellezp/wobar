@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 // ==== STORES ====
 import TopTenStore from 'src/stores/TopTenStore'
 // ==== ANTD ====
-import { Row, Col, Select, Spin, Typography } from 'antd'
+import { Alert, Row, Col, Select, Spin, Typography } from 'antd'
 // ==== COMPONENTS ====
 import PlayerTopTenView from 'src/components/TopTen/PlayerTopTenView'
 // ==== TYPES ====
@@ -79,6 +79,13 @@ const TopTen: React.FC = observer(() => {
 					<Title level={4} style={{ fontWeight: 300 }}>
 						Top 10 Batters
 					</Title>
+					{batterTopTen.length === 0 && (
+						<Alert
+							message={`No batter data for the year ${currentYear}`}
+							type='error'
+							showIcon
+						/>
+					)}
 					<PlayerTopTenView
 						players={batterTopTen}
 						playerPosition='Batter'
@@ -91,6 +98,13 @@ const TopTen: React.FC = observer(() => {
 					<Title level={4} style={{ fontWeight: 300 }}>
 						Top 10 Pitchers
 					</Title>
+					{pitcherTopTen.length === 0 && (
+						<Alert
+							message={`No pitcher data for the year ${currentYear}`}
+							type='error'
+							showIcon
+						/>
+					)}
 					<PlayerTopTenView
 						players={pitcherTopTen}
 						playerPosition='Pitcher'
