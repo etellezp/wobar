@@ -29,10 +29,24 @@ interface ITeamData {
 	team: string
 	teamLogo: string
 	totalRating: number
-	playerCount: number
 	rank?: number
 	league: string
 	division: string
+}
+
+interface IAllTeamData {
+	team: string
+	teamLogo: string
+	rank?: number
+	league: string
+	division: string
+	batterRating: number
+	pitcherRating: number
+}
+
+interface IAllPlayers {
+	batters: IPlayer[]
+	pitchers: IPlayer[]
 }
 
 class TeamStore {
@@ -46,32 +60,101 @@ class TeamStore {
 		makeAutoObservable(this)
 	}
 
-	setAllTeams = (data: IPlayer[]) => {
-		const teamData = data.reduce((acc: Record<string, ITeamData>, obj) => {
-			const team = obj.team
+	setAllTeams = (data: IAllPlayers) => {
+		const allBatters = data.batters
+		const allPitchers = data.pitchers
+		const allPlayers = [...allBatters, ...allPitchers]
 
-			if (!acc[team]) {
-				acc[team] = {
-					team: team,
-					teamLogo: obj.teamLogo,
-					totalRating: 0,
-					playerCount: 0,
-					league: obj.league,
-					division: obj.division
+		const batterData = allBatters.reduce(
+			(acc: Record<string, ITeamData>, obj) => {
+				const team = obj.team
+
+				if (!acc[team]) {
+					acc[team] = {
+						team: team,
+						teamLogo: obj.teamLogo,
+						totalRating: 0,
+						league: obj.league,
+						division: obj.division
+					}
 				}
-			}
-			acc[team].totalRating += obj.rating
-			acc[team].playerCount++
-			return acc
-		}, {})
+				acc[team].totalRating += obj.rating ? obj.rating - 100 : 0
+				return acc
+			},
+			{}
+		)
 
-		const teamsArray = Object.values(teamData).map(team => ({
-			team: team.team,
-			teamLogo: team.teamLogo,
-			averageRating: team.totalRating / team.playerCount,
-			league: team.league,
-			division: team.division
-		}))
+		const pitcherData = allPitchers.reduce(
+			(acc: Record<string, ITeamData>, obj) => {
+				const team = obj.team
+
+				if (!acc[team]) {
+					acc[team] = {
+						team: team,
+						teamLogo: obj.teamLogo,
+						totalRating: 0,
+						league: obj.league,
+						division: obj.division
+					}
+				}
+				acc[team].totalRating += obj.rating ? obj.rating - 100 : 0
+				return acc
+			},
+			{}
+		)
+
+		const teamData = allPlayers.reduce(
+			(acc: Record<string, IAllTeamData>, obj) => {
+				const team = obj.team
+				const isBatter = obj.position.type !== 'Pitcher'
+
+				if (!acc[team]) {
+					acc[team] = {
+						team: team,
+						teamLogo: obj.teamLogo,
+						batterRating: 0,
+						pitcherRating: 0,
+						league: obj.league,
+						division: obj.division
+					}
+				}
+				if (isBatter) {
+					acc[team].batterRating += obj.rating ? obj.rating - 100 : 0
+				} else {
+					acc[team].pitcherRating += obj.rating ? obj.rating - 100 : 0
+				}
+				return acc
+			},
+			{}
+		)
+
+		let teamsArray
+
+		if (this.playerPosition === 'batter') {
+			teamsArray = Object.values(batterData).map(team => ({
+				team: team.team,
+				teamLogo: team.teamLogo,
+				averageRating: team.totalRating,
+				league: team.league,
+				division: team.division
+			}))
+		} else if (this.playerPosition === 'pitcher') {
+			teamsArray = Object.values(pitcherData).map(team => ({
+				team: team.team,
+				teamLogo: team.teamLogo,
+				averageRating: team.totalRating,
+				league: team.league,
+				division: team.division
+			}))
+		} else {
+			teamsArray = Object.values(teamData).map(team => ({
+				team: team.team,
+				teamLogo: team.teamLogo,
+				averageRating: team.batterRating + team.pitcherRating,
+				league: team.league,
+				division: team.division
+			}))
+		}
 
 		teamsArray.sort((a, b) => b.averageRating - a.averageRating)
 
@@ -128,15 +211,13 @@ class TeamStore {
 	}
 
 	getAllTeams = (batters: IPlayer[], pitchers: IPlayer[]) => {
-		let allPlayers: IPlayer[] = []
-
-		if (this.playerPosition === 'batter') {
-			allPlayers = [...batters]
-		} else if (this.playerPosition === 'pitcher') {
-			allPlayers = [...pitchers]
-		} else {
-			allPlayers = [...batters, ...pitchers]
+		const allPlayers: IAllPlayers = {
+			batters: [],
+			pitchers: []
 		}
+
+		allPlayers.batters = [...batters]
+		allPlayers.pitchers = [...pitchers]
 
 		this.setAllTeams(allPlayers)
 	}

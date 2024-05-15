@@ -70,6 +70,7 @@ const TeamRankings: React.FC = observer(() => {
 				filter: 'agTextColumnFilter'
 			},
 			{
+				headerName: 'Rating',
 				field: 'averageRating',
 				filter: false,
 				valueFormatter: data => data.value.toFixed(2)
