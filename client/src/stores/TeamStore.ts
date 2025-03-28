@@ -52,7 +52,7 @@ interface IAllPlayers {
 class TeamStore {
 	loadingTeams: boolean = false
 	allTeams: ITeams[] = []
-	currentYear: YearsChoice = '2024'
+	currentYear: YearsChoice = '2025'
 	currentLeague: string = 'mlb'
 	playerPosition: 'batter' | 'pitcher' | 'all' = 'all'
 

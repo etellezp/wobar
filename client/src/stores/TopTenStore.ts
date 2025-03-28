@@ -22,7 +22,7 @@ class TopTenStore {
 	loadingTopTen: boolean = false
 	batterTopTen: IPlayer[] = []
 	pitcherTopTen: IPlayer[] = []
-	currentYear: YearsChoice = '2024'
+	currentYear: YearsChoice = '2025'
 	topTenLeague: string = 'mlb'
 
 	constructor() {

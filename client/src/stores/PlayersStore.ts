@@ -23,7 +23,7 @@ class PlayersStore {
 	allBatters: IPlayer[] = []
 	allPitchers: IPlayer[] = []
 	playerPosition: 'batter' | 'pitcher' = 'batter'
-	currentYear: YearsChoice = '2024'
+	currentYear: YearsChoice = '2025'
 	currentLeague: string = 'mlb'
 
 	constructor() {
